@@ -1,5 +1,5 @@
 const express = require('express');
-const db  = require('./con.js');
+const db = require('./conn.js');
 
 const router = express.Router();
 
