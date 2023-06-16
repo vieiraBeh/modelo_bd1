@@ -5,19 +5,19 @@ const router = express.Router();
 
 // Registrar um novo resultado
 router.post("/", async (req, res) => {
-    db.pontuacao.insertMany([
-        {nome: "Benda", pontos: 15},
-        {nome: "Luane", pontos: 10},
-        {nome: "Talita", pontos: 20}
-    ]);
+    let col = await db.collection('score');
+    let out = await col.insertOne(req.body)
+    res.send(out).status(204)
 });
 
 
 // Pegar os 10 melhores resultados
 router.get("/", async (req, res) => {
-    db.pontuação.find().sort({
+    let col = await db.collection('score');
+    let col = await col.find().sort({
         pontos: -1
     }).limit(10)
+    res.send(out).status(200)
 });
 
 module.exports = router;
