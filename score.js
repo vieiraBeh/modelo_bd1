@@ -7,17 +7,17 @@ const router = express.Router();
 router.post("/", async (req, res) => {
     let col = await db.collection('score');
     let out = await col.insertOne(req.body)
-    res.send(out).status(204)
+    res.send(out).status(204);
 });
 
 
 // Pegar os 10 melhores resultados
 router.get("/", async (req, res) => {
     let col = await db.collection('score');
-    let col = await col.find().sort({
+    let out = await col.find().sort({
         pontos: -1
     }).limit(10)
-    res.send(out).status(200)
+    res.send(out).status(200);
 });
 
 module.exports = router;
