@@ -16,8 +16,8 @@ router.get("/", async (req, res) => {
     let col = await db.collection('score');
     let out = await col.find().sort({
         pontos: -1
-    }).limit(10)
-    res.send(out).status(200);
+    }).limit(10);
+    res.send(out).status(200)
 });
 
 module.exports = router;

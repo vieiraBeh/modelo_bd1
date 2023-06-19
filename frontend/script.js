@@ -1,3 +1,5 @@
+const { response } = require("express");
+
 const numero_moedas = 70;
 const tempo_inicial = 10;
 let pontos = 0;
@@ -70,3 +72,18 @@ alert("Você fez " + pontos + " pontos, parabéns!");
 iniciaJogo();
  }
 }
+
+let pontuacao = {
+    name : nome_da_pessoa,
+    pontos: variavel_da_pontuaçao
+}
+
+fetch ('http://localhost:5050/score',{
+    method: "POST",
+    body: JSON.stringify(pontuacao),
+    headers: {"Content-type":"application/json; charset=UTF-8"}
+})
+.then(response => response.json())
+.then(json =>console.log(json))
+.catch(error => console.log(error))
+

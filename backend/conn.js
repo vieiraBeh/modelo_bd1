@@ -6,6 +6,6 @@ const client = new MongoClient(connectionString);
 try {
   let db = client.db("jogo");
   module.exports = db;
-} catch(e) {
-  console.error(e);
+} catch(error) {
+  console.error(error);
 }
