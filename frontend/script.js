@@ -6,12 +6,12 @@ let pontos = 0;
 let tempo = 0;
 let timer = null;
 
-function criarElemento(pokemon, link){
+function criarElemento(lua,link){
   const container = document.getElementById('container');
   const name = document.createElement('p');
   const url = document.createElement('span');
 
-  name.textContent = pokemon;
+  name.textContent = lua;
   url.textContent = link;
 
   container.appendChild(name);
@@ -26,7 +26,7 @@ tela.innerHTML = "";
 
 for(let i = 0; i < numero_moedas; ++i){
 let moeda = document.createElement("img");
-moeda.src = "lua.png";
+moeda.src ="lua.png";
 moeda.id = "j" + i;
 moeda.onclick = function(){
 pegaMoeda(this);
@@ -34,7 +34,7 @@ pegaMoeda(this);
 tela.appendChild(moeda);
 }
 timer = setInterval(contaTempo,1000);
-}
+
 
 fetch('http://localhost:5050/score')
   .then(response => {
@@ -44,11 +44,16 @@ fetch('http://localhost:5050/score')
     return response.json();
   })
   .then(data => {
-   console.log(data)
+   console.log(data);
+   const jogadores = data;
+   jogadores.forEach(jogador => {
+    criarElemento(jogador.name, jogador.pontuacao);
+   });
     }) 
   .catch(error => {
-    console.log(error);
+    console.error(error);
   });
+}
 
 function pegaMoeda(moeda){
 moeda
@@ -74,8 +79,8 @@ iniciaJogo();
 }
 
 let pontuacao = {
-    name : nome_da_pessoa,
-    pontos: variavel_da_pontuaçao
+    name : nome_do_jogador,
+    pontos: pontos
 }
 
 fetch ('http://localhost:5050/score',{
@@ -85,5 +90,5 @@ fetch ('http://localhost:5050/score',{
 })
 .then(response => response.json())
 .then(json =>console.log(json))
-.catch(error => console.log(error))
+.catch(err => console.log(err))
 
