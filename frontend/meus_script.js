@@ -1,17 +1,15 @@
-const { response } = require("express");
-
 const numero_moedas = 70;
 const tempo_inicial = 10;
 let pontos = 0;
 let tempo = 0;
 let timer = null;
 
-function criarElemento(lua,link){
+function criarElemento(pokemon, link){
   const container = document.getElementById('container');
   const name = document.createElement('p');
   const url = document.createElement('span');
 
-  name.textContent = lua;
+  name.textContent = pokemon;
   url.textContent = link;
 
   container.appendChild(name);
@@ -26,7 +24,7 @@ tela.innerHTML = "";
 
 for(let i = 0; i < numero_moedas; ++i){
 let moeda = document.createElement("img");
-moeda.src ="lua.png";
+moeda.src = "LuaIcon2.png";
 moeda.id = "j" + i;
 moeda.onclick = function(){
 pegaMoeda(this);
@@ -34,6 +32,15 @@ pegaMoeda(this);
 tela.appendChild(moeda);
 }
 timer = setInterval(contaTempo,1000);
+}
+
+function pegaMoeda(moeda){
+moeda
+moeda.src = "LuaIcon.png";
+++pontos;
+let contadorPontos = document.getElementById("pontos");
+contadorPontos.innerText = pontos;
+}
 
 
 fetch('http://localhost:5050/score')
@@ -44,24 +51,12 @@ fetch('http://localhost:5050/score')
     return response.json();
   })
   .then(data => {
-   console.log(data);
-   const jogadores = data;
-   jogadores.forEach(jogador => {
-    criarElemento(jogador.name, jogador.pontuacao);
-   });
+   console.log(data)
     }) 
   .catch(error => {
-    console.error(error);
+    console.log(error);
   });
-}
 
-function pegaMoeda(moeda){
-moeda
-moeda.src = "luaCheia.png";
-++pontos;
-let contadorPontos = document.getElementById("pontos");
-contadorPontos.innerText = pontos;
-}
 function contaTempo(){
 if(tempo > 0){
 --tempo;
@@ -75,12 +70,7 @@ if(tempo <= 0){
 clearInterval(timer);
 alert("Você fez " + pontos + " pontos, parabéns!");
 iniciaJogo();
- }
 }
-
-let pontuacao = {
-    name : nome_do_jogador,
-    pontos: pontos
 }
 
 fetch ('http://localhost:5050/score',{
@@ -90,5 +80,4 @@ fetch ('http://localhost:5050/score',{
 })
 .then(response => response.json())
 .then(json =>console.log(json))
-.catch(err => console.log(err))
-
+.catch(error => console.log(error))
